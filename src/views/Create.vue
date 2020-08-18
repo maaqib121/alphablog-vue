@@ -61,7 +61,12 @@ export default {
       axios
         .post(
           "https://aaqib-alphablog.herokuapp.com/api/v1/articles/",
-          this.article
+          this.article,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage["token"]}`
+            }
+          }
         )
         .then(response => {
           this.response = response.data;
