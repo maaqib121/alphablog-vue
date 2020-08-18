@@ -1,32 +1,54 @@
 <template>
   <div id="app">
-    <b-navbar type="light" variant="light">
-      <b-navbar-nav>
-        <b-nav-item href="#">
-          <router-link to="/">Home</router-link>
-        </b-nav-item>
+    <div id="nav">
+      <b-navbar class="bg-purple" toggleable="sm" type="dark">
+        <b-navbar-brand class="text-light" href="/">Alpha Blog</b-navbar-brand>
+        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-        <b-nav-item-dropdown text="Articles" right>
-          <b-dropdown-item>
-            <router-link to="/create">Create Article</router-link>
-          </b-dropdown-item>
-        </b-nav-item-dropdown>
+        <b-collapse id="nav-collapse" is-nav>
+          <b-navbar-nav class="ml-auto">
+            <b-nav-item>
+              <router-link to="/">Home</router-link>
+            </b-nav-item>
 
-        <b-nav-item href="#">
-          <router-link to="/login">Login</router-link>
-        </b-nav-item>
+            <b-nav-item-dropdown text="Articles" right>
+              <b-dropdown-item>
+                <router-link v-if="isAuthenticated()" class="text-dark" to="/create">Create Article</router-link>
+              </b-dropdown-item>
+            </b-nav-item-dropdown>
 
-        <b-nav-item href="#">
-          <router-link to="/logout">Logout</router-link>
-        </b-nav-item>
-      </b-navbar-nav>
-    </b-navbar>
+            <b-nav-item v-if="!isAuthenticated()" href="#">
+              <router-link to="/login">Login</router-link>
+            </b-nav-item>
 
-    <b-container>
-      <router-view />
-    </b-container>
+            <b-nav-item v-if="isAuthenticated()" href="#">
+              <router-link to="/logout">Logout</router-link>
+            </b-nav-item>
+          </b-navbar-nav>
+        </b-collapse>
+      </b-navbar>
+
+      <b-container>
+        <router-view />
+      </b-container>
+    </div>
   </div>
 </template>
+
+
+<script>
+export default {
+  methods: {
+    isAuthenticated() {
+      if ("token" in localStorage) {
+        return true;
+      }
+      return false;
+    }
+  }
+};
+</script>
+
 
 <style lang="scss">
 #app {
@@ -38,15 +60,18 @@
 }
 
 #nav {
-  padding: 30px;
-
   a {
-    font-weight: bold;
-    color: #2c3e50;
+    font-weight: normal;
+    color: #c7ccd4;
 
     &.router-link-exact-active {
-      color: #42b983;
+      color: white;
+      font-weight: bolder;
     }
   }
+}
+
+.bg-purple {
+  background-color: #542d85;
 }
 </style>
