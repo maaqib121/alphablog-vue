@@ -1,30 +1,34 @@
 <template>
   <div class="home">
     <h1 class="display-4 mt-4">Articles List</h1>
-    <div>
-      <b-row v-for="article in articles" :key="article.id" class="justify-content-center">
-        <b-col md="8" lg="6">
-          <b-card
-            :title="article.attributes.title"
-            :sub-title="article.attributes.user.username"
-            class="mb-4 shadow p-3 bg-white rounded"
-          >
-            <b-card-text class="mt-3">{{ article.attributes.description }}</b-card-text>
-            <b-card-text>
-              Created {{ article.attributes.created_at | moment }} |
-              Updated {{ article.attributes.updated_at | moment }}
-            </b-card-text>
-            <b-button class="mt-3" variant="outline-primary">View Article</b-button>
-          </b-card>
-        </b-col>
-      </b-row>
-    </div>
+    <b-row>
+      <b-col
+        v-for="article in articles"
+        :key="article.id"
+        class="justify-content-center"
+        md="6"
+        lg="4"
+      >
+        <b-card
+          :title="article.attributes.title"
+          :sub-title="article.attributes.user.username"
+          class="mb-4 shadow p-3 bg-white rounded"
+        >
+          <b-card-text class="mt-3">{{ article.attributes.description }}</b-card-text>
+          <b-card-text>
+            Created {{ article.attributes.created_at | moment }} |
+            Updated {{ article.attributes.updated_at | moment }}
+          </b-card-text>
+          <b-button class="mt-3" variant="outline-primary">View Article</b-button>
+        </b-card>
+      </b-col>
+    </b-row>
   </div>
 </template>
 
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 import moment from "moment";
 import { getArticles } from "../store/api";
 
@@ -43,14 +47,9 @@ export default {
   },
 
   mounted: function() {
-    axios
-      .get("https://aaqib-alphablog.herokuapp.com/api/v1/articles")
-      .then(response => {
-        return response.data;
-      })
-      .then(jsonData => {
-        this.articles = jsonData.data;
-      });
+    getArticles().then(response => {
+      this.articles = response;
+    });
     console.log(getArticles());
   }
 };

@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import { createArticle } from "../store/api";
 
 export default {
   name: "Create",
@@ -50,25 +50,16 @@ export default {
       response: ""
     };
   },
+
   methods: {
     onCreate(evt) {
       evt.preventDefault();
-      axios
-        .post(
-          "https://aaqib-alphablog.herokuapp.com/api/v1/articles/",
-          this.article,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage["token"]}`
-            }
-          }
-        )
-        .then(response => {
-          this.response = response.data;
-          if ("id" in this.response) {
-            this.$router.push("/");
-          }
-        });
+      createArticle(this.article).then(response => {
+        this.response = response;
+        if ("id" in this.response) {
+          this.$router.push("/");
+        }
+      });
     }
   }
 };

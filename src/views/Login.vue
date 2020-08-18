@@ -12,7 +12,7 @@
             <b-form-group class="mx-4" label="Email address:" label-for="email">
               <b-form-input
                 id="email"
-                v-model="login.email"
+                v-model="credentials.email"
                 type="email"
                 required
                 placeholder="Enter your email"
@@ -22,7 +22,7 @@
             <b-form-group class="mx-4 mt-4" label="Password:" label-for="password">
               <b-form-input
                 id="password"
-                v-model="login.password"
+                v-model="credentials.password"
                 type="password"
                 required
                 placeholder="Enter your password"
@@ -37,13 +37,13 @@
 </template>
 
 <script>
-import axios from "axios";
+import { login } from "../store/api";
 
 export default {
   name: "Login",
   data() {
     return {
-      login: {
+      credentials: {
         email: "",
         password: ""
       },
@@ -54,15 +54,13 @@ export default {
   methods: {
     onLogin(evt) {
       evt.preventDefault();
-      axios
-        .post("https://aaqib-alphablog.herokuapp.com/api/v1/login/", this.login)
-        .then(response => {
-          this.response = response.data;
-          if ("token" in this.response) {
-            localStorage.setItem("token", this.response.token);
-            this.$router.push("/");
-          }
-        });
+      login(this.credentials).then(response => {
+        this.response = response;
+        if ("token" in this.response) {
+          localStorage.setItem("token", this.response.token);
+          this.$router.push("/");
+        }
+      });
     }
   }
 };

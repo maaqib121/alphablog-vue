@@ -1,3 +1,5 @@
+// import { mapGetters } from "vuex";
+
 export function auth({ next, router }) {
   if ("token" in localStorage) {
     return next();
