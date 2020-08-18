@@ -32,22 +32,12 @@ export default {
   name: "Home",
   data() {
     return {
-      per_page: 4,
-      current_page: 1,
-      articles: [],
-      date: moment("2018-11-11").format("2018-11-11")
+      articles: []
     };
-  },
-
-  computed: {
-    rows() {
-      return this.length;
-    }
   },
 
   filters: {
     moment(date) {
-      //return moment(date).format("DD-MM-YYYY");
       return moment(date).from(Date.now());
     }
   },
@@ -60,8 +50,8 @@ export default {
       })
       .then(jsonData => {
         this.articles = jsonData.data;
-        console.log(getArticles());
       });
+    console.log(getArticles());
   }
 };
 </script>
