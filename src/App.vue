@@ -1,11 +1,27 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link>|
-      <router-link to="/create">Create Article</router-link>|
-      <router-link to="/login">Login</router-link>|
-      <router-link to="/logout">Logout</router-link>
-    </div>
+    <b-navbar type="light" variant="light">
+      <b-navbar-nav>
+        <b-nav-item href="#">
+          <router-link to="/">Home</router-link>
+        </b-nav-item>
+
+        <b-nav-item-dropdown text="Articles" right>
+          <b-dropdown-item>
+            <router-link to="/create">Create Article</router-link>
+          </b-dropdown-item>
+        </b-nav-item-dropdown>
+
+        <b-nav-item href="#">
+          <router-link to="/login">Login</router-link>
+        </b-nav-item>
+
+        <b-nav-item href="#">
+          <router-link to="/logout">Logout</router-link>
+        </b-nav-item>
+      </b-navbar-nav>
+    </b-navbar>
+
     <b-container>
       <router-view />
     </b-container>

@@ -7,7 +7,7 @@
           <b-card
             :title="article.attributes.title"
             :sub-title="article.attributes.user.username"
-            class="mt-4"
+            class="mb-4"
           >
             <b-card-text class="mt-3">{{ article.attributes.description }}</b-card-text>
             <b-card-text>
