@@ -4,6 +4,7 @@ import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import Create from "../views/Create.vue";
 import Logout from "../views/Logout.vue";
+import Show from "../views/Show.vue";
 import { auth, redirect } from "../middleware/auth.js";
 
 Vue.use(VueRouter);
@@ -37,6 +38,11 @@ const routes = [
     meta: {
       middleware: [auth]
     }
+  },
+  {
+    path: "/articles/:id",
+    name: "Show",
+    component: Show
   }
 ];
 

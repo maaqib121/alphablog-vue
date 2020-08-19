@@ -37,10 +37,16 @@
 
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
+  computed: {
+    ...mapGetters(["getToken"])
+  },
+
   methods: {
     isAuthenticated() {
-      if ("token" in localStorage) {
+      if (this.getToken) {
         return true;
       }
       return false;
