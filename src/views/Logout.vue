@@ -1,5 +1,5 @@
 <template>
-  <div id="logout">
+  <div>
     <h1 class="display-4 mt-4">Logout?</h1>
     <b-row class="justify-content-center">
       <b-col lg="7" md="9">
@@ -7,8 +7,8 @@
           <b-card-text class="lead">Do you really want to logout from Alpha Blog App?</b-card-text>
           <div class="mt-4">
             <b-card-text>
-              <b-button @click="logout" variant="outline-danger" class="mx-2">Yes</b-button>
-              <b-button @click="cancel" variant="outline-primary">No</b-button>
+              <b-button @click="onLogout" variant="outline-danger" class="mx-2">Yes</b-button>
+              <b-button @click="onCancel" variant="outline-primary">No</b-button>
             </b-card-text>
           </div>
         </b-card>
@@ -18,14 +18,17 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "Login",
   methods: {
-    logout() {
-      localStorage.removeItem("token");
+    ...mapActions(["logout"]),
+    onLogout() {
+      this.logout();
       this.$router.push("/login");
     },
-    cancel() {
+    onCancel() {
       this.$router.push("/");
     }
   }

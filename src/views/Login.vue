@@ -1,5 +1,5 @@
 <template>
-  <div id="login">
+  <div>
     <h1 class="display-4 mt-4">Login</h1>
     <b-row class="justify-content-center">
       <b-col lg="8" md="10">
@@ -38,6 +38,7 @@
 
 <script>
 import { login } from "../store/api";
+import { mapActions } from "vuex";
 
 export default {
   name: "Login",
@@ -52,12 +53,13 @@ export default {
   },
 
   methods: {
+    ...mapActions(["login"]),
     onLogin(evt) {
       evt.preventDefault();
       login(this.credentials).then(response => {
         this.response = response;
         if ("token" in this.response) {
-          localStorage.setItem("token", this.response.token);
+          this.login(this.response.token);
           this.$router.push("/");
         }
       });
